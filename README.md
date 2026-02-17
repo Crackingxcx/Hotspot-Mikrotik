@@ -30,3 +30,7 @@ desain dan penulisan kode agar lebih efisien dan modern.
   <li>Mikrotik Hotspot</li>
   <li>AI Assistance untuk desain dan pengembangan</li>
 </ul>
+
+<p>
+Harap nama file menjadi <b>hotspot</b> saat setelah mendownload file ini agar dapat terbaca oleh perangkat mikrotik
+</p>
