@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<title>Logout Hotspot</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+/* CARD */
+.card {
+    width: 420px;
+    max-width: 90%;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(14px);
+    border-radius: 22px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,.45);
+}
+
+/* ICON */
+.icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+/* TITLE */
+h2 {
+    margin: 10px 0 5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    opacity: .85;
+    margin-bottom: 25px;
+}
+
+/* INFO LIST */
+.info {
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.info div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.info div span {
+    opacity: .8;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 15px;
+    font-size: 12px;
+    opacity: .7;
+}
+
+/* MOBILE */
+@media(max-width:480px){
+    .card {
+        padding: 25px 20px;
+        border-radius: 18px;
+    }
+}
+</style>
+
+<script>
+function openLogin() {
+    if (window.name != 'hotspot_logout') return true;
+    open('$(link-login)', '_blank', '');
+    window.close();
+    return false;
+}
+</script>
+</head>
+
+<body>
+
+<div class="card">
+
+    <div class="icon">✅</div>
+    <h2>Berhasil Logout</h2>
+    <div class="subtitle">Terima kasih telah menggunakan hotspot</div>
+
+    <div class="info">
+        <div><span>Username</span><b>$(username)</b></div>
+        <div><span>IP Address</span><b>$(ip)</b></div>
+        <div><span>MAC</span><b>$(mac)</b></div>
+        <div><span>Waktu Online</span><b>$(uptime)</b></div>
+        $(if session-time-left)
+        <div><span>Sisa Waktu</span><b>$(session-time-left)</b></div>
+        $(endif)
+        <div><span>Data</span><b>$(bytes-in-nice) / $(bytes-out-nice)</b></div>
+    </div>
+
+    <form action="$(link-login)" onSubmit="return openLogin()">
+        <button type="submit">Login Ulang</button>
+    </form>
+
+    <div class="footer">Powered by SURYANET</div>
+
+</div>
+
+</body>
+</html>

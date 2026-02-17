@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotspot Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username">
+        <input type="hidden" name="password">
+        <input type="hidden" name="dst" value="$(link-orig)">
+        <input type="hidden" name="popup" value="true">
+    </form>
+
+    <script src="/md5.js"></script>
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('light');
+            const icon = document.getElementById('themeIcon');
+            icon.innerHTML = document.body.classList.contains('light') ? '☀️' : '🌙';
+        }
+        function doLogin() {
+            document.sendin.username.value = document.login.username.value;
+            document.sendin.password.value =
+                hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+            document.sendin.submit();
+            return false;
+        }
+        function setMode(mode) {
+            document.getElementById('btnAnggota').classList.remove('active');
+            document.getElementById('btnVoucher').classList.remove('active');
+
+            document.getElementById('btn' + mode).classList.add('active');
+
+            const info = document.getElementById('modeInfo');
+            if (mode === 'Voucher') {
+                info.innerText = 'Login menggunakan akun voucher hotspot';
+            } else {
+                info.innerText = 'Login menggunakan akun anggota';
+            }
+        }
+    </script>
+    $(endif)
+
+    <div class="card">
+
+        <!-- LOGIN -->
+        <div class="login">
+            <div class="logo">
+                <img src="logo-ktt.JPG">
+            </div>
+
+            <h2>FADHIL SURYA PERMADI</h2>
+            <h4>XII TKJ 4</h4>
+
+            <!-- SWITCH MODE -->
+            <div class="switch">
+                <button type="button" id="btnAnggota" class="active" onclick="setMode('Anggota')">
+                    👤 Anggota
+                </button>
+                <button type="button" id="btnVoucher" onclick="setMode('Voucher')">
+                    🎫 Voucher
+                </button>
+            </div>
+
+            <div id="modeInfo" class="mode-info">
+                Login menggunakan akun anggota
+            </div>
+
+            <form name="login" action="$(link-login-only)" method="post" $(if chap-id) onSubmit="return doLogin()"
+                $(endif)>
+
+                <input type="hidden" name="dst" value="$(link-orig)">
+                <input type="hidden" name="popup" value="true">
+
+                <input name="username" placeholder="Username">
+                <input name="password" type="password" placeholder="Password">
+
+                <button type="submit">LOGIN</button>
+            </form>
+
+            <div class="footer">Powered by SURYANET</div>
+        </div>
+        <div class="theme-toggle" onclick="toggleTheme()" id="themeIcon">
+            🌙
+        </div>
+
+        <!-- FOTO -->
+        <div class="photo">
+            <img src="IMG_6215.JPG" alt="Foto Surya">
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="id">
+<head>
+$(if refresh-timeout)
+<meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+$(endif)
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="pragma" content="no-cache">
+<meta http-equiv="expires" content="-1">
+<title>Status Hotspot</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}
+
+/* CARD */
+.card {
+    width: 420px;
+    max-width: 90%;
+    background: rgba(255,255,255,.15);
+    backdrop-filter: blur(14px);
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.45);
+}
+
+/* HEADER */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header .icon {
+    font-size: 40px;
+}
+
+.header h2 {
+    margin: 8px 0 4px;
+}
+
+.header p {
+    font-size: 13px;
+    opacity: .8;
+}
+
+/* INFO */
+.info {
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.info div {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+.info span {
+    opacity: .8;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 12px;
+    opacity: .7;
+}
+
+/* MOBILE */
+@media(max-width:480px){
+    .card {
+        padding: 25px 20px;
+        border-radius: 18px;
+    }
+}
+</style>
+
+<script>
+$(if advert-pending == 'yes')
+    var popup = '';
+    function focusAdvert() {
+        if (window.focus) popup.focus();
+    }
+    function openAdvert() {
+        popup = open('$(link-advert)', 'hotspot_advert', '');
+        setTimeout("focusAdvert()", 1000);
+    }
+$(endif)
+
+function openLogout() {
+    if (window.name != 'hotspot_status') return true;
+    open('$(link-logout)', 'hotspot_logout',
+        'toolbar=0,location=0,status=0,menubars=0,resizable=1,width=320,height=420');
+    window.close();
+    return false;
+}
+</script>
+</head>
+
+<body $(if advert-pending == 'yes') onLoad="openAdvert()" $(endif)>
+
+<div class="card">
+
+    <div class="header">
+        <div class="icon">📶</div>
+        $(if login-by == 'trial')
+            <h2>Trial User</h2>
+        $(elif login-by != 'mac')
+            <h2>Halo, $(username)</h2>
+        $(endif)
+        <p>Status koneksi hotspot</p>
+    </div>
+
+    <div class="info">
+        <div><span>IP Address</span><b>$(ip)</b></div>
+        <div><span>Data</span><b>$(bytes-in-nice) / $(bytes-out-nice)</b></div>
+
+        $(if session-time-left)
+            <div><span>Online / Sisa</span><b>$(uptime) / $(session-time-left)</b></div>
+        $(else)
+            <div><span>Waktu Online</span><b>$(uptime)</b></div>
+        $(endif)
+
+        $(if blocked == 'yes')
+            <div>
+                <span>Status</span>
+                <b>
+                    <a href="$(link-advert)" target="hotspot_advert" style="color:#ffb3b3">
+                        Perlu Iklan
+                    </a>
+                </b>
+            </div>
+        $(elif refresh-timeout)
+            <div><span>Refresh</span><b>$(refresh-timeout)</b></div>
+        $(endif)
+    </div>
+
+    $(if login-by-mac != 'yes')
+    <form action="$(link-logout)" onSubmit="return openLogout()">
+        <button type="submit">Logout</button>
+    </form>
+    $(endif)
+
+    <div class="footer">Powered by SURYANET</div>
+
+</div>
+
+</body>
+</html>
