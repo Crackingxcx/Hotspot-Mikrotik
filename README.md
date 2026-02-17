@@ -32,5 +32,5 @@ desain dan penulisan kode agar lebih efisien dan modern.
 </ul>
 
 <p>
-Harap nama file menjadi <b>hotspot</b> saat setelah mendownload file ini agar dapat terbaca oleh perangkat mikrotik
+Harap nama file menjadi <b>hotspot</b> saat setelah mendownload file ini agar dapat terbaca oleh perangkat mikrotik dan file dengan README.md juga dihapus
 </p>
